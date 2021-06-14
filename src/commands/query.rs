@@ -1,5 +1,5 @@
 
-pub fn exec_query(callsign: &str, logbook: &str, search_all: bool) {
+pub fn exec_query(callsign: &str, logbook: Option<&str>, search_all: bool) {
 
     todo!();
 }
