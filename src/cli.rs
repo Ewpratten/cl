@@ -148,7 +148,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                     .short("c")
                     .help("Search by callsign")
                     .takes_value(true)
-                    .required(false)
+                    .required(true)
             )
         )
         .subcommand(

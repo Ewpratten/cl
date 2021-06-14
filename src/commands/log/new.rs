@@ -1,9 +1,6 @@
 use colored::Colorize;
 
-use crate::lib::{
-    data::{logbook::Logbook, logentry::LogEntry},
-    ensure_storage_location_exists, get_data_books_path, get_data_default_book_path,
-};
+use crate::lib::{data::{logbook::{Logbook, book_name_or_default}, logentry::LogEntry}, ensure_storage_location_exists, get_data_books_path, get_data_default_book_path};
 
 pub fn exec_new_log(
     callsign: &str,
@@ -20,11 +17,7 @@ pub fn exec_new_log(
     ensure_storage_location_exists();
 
     // Load the correct logbook
-    let book_name = match logbook {
-        Some(name) => name.to_string(),
-        None => std::fs::read_to_string(get_data_default_book_path())
-            .expect("No default logbook to read from"),
-    };
+    let book_name = book_name_or_default(logbook);
 
     // Check if the book exists
     let mut book_path = get_data_books_path();
