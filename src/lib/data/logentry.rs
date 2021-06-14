@@ -1,11 +1,10 @@
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Local, NaiveDate, NaiveTime, Utc, TimeZone};
 use failure::Error;
 use serde::{Deserialize, Serialize};
 
 /// Defines a single log entry
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LogEntry {
-
     /// Other callsign
     pub callsign: String,
 
@@ -58,5 +57,15 @@ impl LogEntry {
 }
 
 fn encode_date_time(date: Option<&str>, time: Option<&str>) -> DateTime<Utc> {
-    todo!();
+    let date = match date {
+        Some(date) => NaiveDate::parse_from_str(date, "%Y-%m-%d").unwrap(),
+        None => Utc::today().naive_local(),
+    };
+    DateTime::from(Local.from_local_datetime(&match time {
+        Some(time) => {
+            let time = NaiveTime::parse_from_str(time, "%H:%M").unwrap();
+            date.and_time(time)
+        },
+        None => date.and_time(Local::now().time())
+    }).unwrap())
 }
