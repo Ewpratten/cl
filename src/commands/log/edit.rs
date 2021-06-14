@@ -3,6 +3,7 @@ pub fn exec_edit_log(
     callsign: &str,
     frequency: f32,
     mode: &str,
+    date: Option<&str>,
     time: Option<&str>,
     grid: Option<&str>,
     name: Option<&str>,

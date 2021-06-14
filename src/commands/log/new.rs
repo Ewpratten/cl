@@ -3,6 +3,7 @@ pub fn exec_new_log(
     frequency: f32,
     mode: &str,
     logbook: Option<&str>,
+    date: Option<&str>,
     time: Option<&str>,
     grid: Option<&str>,
     name: Option<&str>,

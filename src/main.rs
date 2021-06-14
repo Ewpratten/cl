@@ -12,6 +12,7 @@ use crate::commands::log::edit::exec_edit_log;
 
 mod cli;
 mod commands;
+mod lib;
 
 fn main() {
     // Get CLI args
@@ -64,6 +65,7 @@ fn main() {
                     )),
                 sub_matches.value_of("mode").unwrap(),
                 sub_matches.value_of("logbook"),
+                sub_matches.value_of("date"),
                 sub_matches.value_of("time"),
                 sub_matches.value_of("grid"),
                 sub_matches.value_of("name"),
@@ -82,6 +84,7 @@ fn main() {
                         "Frequency".bright_blue()
                     )),
                 sub_matches.value_of("mode").unwrap(),
+                sub_matches.value_of("date"),
                 sub_matches.value_of("time"),
                 sub_matches.value_of("grid"),
                 sub_matches.value_of("name"),
