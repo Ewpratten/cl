@@ -16,3 +16,5 @@ colored = "2.0.0"
 chrono = { version = "0.4.19", features = ["serde"] }
 hambands = "0.1.2"
 failure = "0.1.8"
+autojson = "0.1.0"
+dirs = "3.0.2"
