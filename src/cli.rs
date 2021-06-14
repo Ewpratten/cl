@@ -4,16 +4,16 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
     App::new(crate_name!())
         .author(crate_authors!())
         .about(crate_description!())
-        .setting(AppSettings::ColorAuto)
-        .setting(AppSettings::ColoredHelp)
-        .setting(AppSettings::ArgRequiredElseHelp)
+        .global_setting(AppSettings::ColorAuto)
+        .global_setting(AppSettings::ColoredHelp)
+        .global_setting(AppSettings::ArgRequiredElseHelp)
         .subcommand(
             SubCommand::with_name("book")
                 .alias("b")
-                .help("Tools for managing logbooks")
+                .about("Tools for managing logbooks")
                 .subcommand(
                     SubCommand::with_name("new").alias("n")
-                        .help("Create a new logbook")
+                        .about("Create a new logbook")
                         .arg(
                             Arg::with_name("name")
                                 .help("Logbook name")
@@ -60,7 +60,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                         ),
                 )
                 .subcommand(SubCommand::with_name("edit").alias("e")
-                    .help("Edit an existing logbook")
+                    .about("Edit an existing logbook")
                     .arg(
                         Arg::with_name("name")
                             .help("Logbook name")
@@ -100,7 +100,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                     ),
                 )
                 .subcommand(SubCommand::with_name("dump").alias("d")
-                    .help("Dump the contents of a logbook")
+                    .about("Dump the contents of a logbook")
                     .arg(
                         Arg::with_name("name")
                             .help("Logbook name")
@@ -109,7 +109,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                     )
                 )
                 .subcommand(SubCommand::with_name("export")
-                    .help("Export the contents of a logbook to a file")
+                    .about("Export the contents of a logbook to a file")
                     .arg(
                         Arg::with_name("name")
                             .help("Logbook name")
@@ -127,7 +127,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
         .subcommand(
             SubCommand::with_name("query")
             .alias("q")
-            .help("Look up existing logbook entries")
+            .about("Look up existing logbook entries")
             .arg(
                 Arg::with_name("search_all")
                     .long("search-all")
@@ -148,11 +148,11 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
         .subcommand(
             SubCommand::with_name("log")
                 .alias("l")
-                .help("Manage log entries")
+                .about("Manage log entries")
                 .subcommand(
                     SubCommand::with_name("new")
                         .alias("n")   
-                        .help("Create a new log entry")
+                        .about("Create a new log entry")
                         .arg(
                             Arg::with_name("logbook")
                                 .long("logbook")
@@ -218,7 +218,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                 .subcommand(
                     SubCommand::with_name("edit")
                         .alias("e")   
-                        .help("Edit a log entry")
+                        .about("Edit a log entry")
                         .arg(
                             Arg::with_name("id")
                                 .help("Log entry ID to edit")
