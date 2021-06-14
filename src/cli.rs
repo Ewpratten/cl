@@ -129,6 +129,12 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
             .alias("q")
             .about("Look up existing logbook entries")
             .arg(
+                Arg::with_name("logbook")
+                    .help("Logbook to search (otherwise default or all)")
+                    .takes_value(true)
+                    .required(false),
+            )
+            .arg(
                 Arg::with_name("search_all")
                     .long("search-all")
                     .short("a")
