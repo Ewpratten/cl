@@ -37,7 +37,6 @@ pub fn exec_new_book(
     }
 
     // Save the logbook
-    println!("{:?}", book_path);
     autojson::jsonify(&book, &book_path).expect("Failed to serialize logbook");
 
     // Handle saving this as the default
