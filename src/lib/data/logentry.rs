@@ -5,13 +5,29 @@ use serde::{Deserialize, Serialize};
 /// Defines a single log entry
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LogEntry {
+
+    /// Other callsign
     pub callsign: String,
+
+    /// QSO frequency
     pub frequency_khz: f32,
+
+    /// QSO band
     pub band: String,
+
+    /// QSO mode
     pub mode: String,
+
+    /// Time of QSO
     pub time: DateTime<Utc>,
+
+    /// Other station's grid
     pub grid: Option<String>,
+
+    /// Other Ops name
     pub name: Option<String>,
+
+    /// Notes
     pub notes: Option<String>,
 }
 
