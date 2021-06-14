@@ -50,6 +50,13 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                             .help("Make this the default logbook for this device")
                             .takes_value(false)
                             .required(false),
+                        )
+                        .arg(
+                            Arg::with_name("import")
+                            .long("import")
+                            .help("Import logs from an ADIF file into a new logbook")
+                            .takes_value(true)
+                            .required(false),
                         ),
                 )
                 .subcommand(SubCommand::with_name("edit").alias("e")
