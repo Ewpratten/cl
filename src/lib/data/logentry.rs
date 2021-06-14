@@ -56,7 +56,7 @@ impl LogEntry {
     }
 }
 
-fn encode_date_time(date: Option<&str>, time: Option<&str>) -> DateTime<Utc> {
+pub fn encode_date_time(date: Option<&str>, time: Option<&str>) -> DateTime<Utc> {
     let date = match date {
         Some(date) => NaiveDate::parse_from_str(date, "%Y-%m-%d").unwrap(),
         None => Utc::today().naive_local(),

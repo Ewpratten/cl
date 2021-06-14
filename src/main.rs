@@ -74,16 +74,15 @@ fn main() {
         } else if let Some(sub_matches) = matches.subcommand_matches("edit") {
             exec_edit_log(
                 sub_matches.value_of("id").unwrap(),
-                sub_matches.value_of("callsign").unwrap(),
-                sub_matches
-                    .value_of("frequency")
-                    .unwrap()
-                    .parse()
-                    .expect(&format!(
+                sub_matches.value_of("callsign"),
+                match sub_matches.value_of("frequency") {
+                    Some(freq) => Some(freq.parse().expect(&format!(
                         "{} is not a valid number!",
                         "Frequency".bright_blue()
-                    )),
-                sub_matches.value_of("mode").unwrap(),
+                    ))),
+                    None => None,
+                },
+                sub_matches.value_of("mode"),
                 sub_matches.value_of("date"),
                 sub_matches.value_of("time"),
                 sub_matches.value_of("grid"),

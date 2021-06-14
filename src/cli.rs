@@ -241,9 +241,11 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                         )
                         .arg(
                             Arg::with_name("callsign")
+                                .long("callsign")
+                                .short("c")
                                 .help("Callsign of the station you contacted")
                                 .takes_value(true)
-                                .required(true)
+                                .required(false)
                         )
                         .arg(
                             Arg::with_name("frequency")
@@ -251,7 +253,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                                 .short("f")
                                 .help("QSO frequency in KHz (ex. 7030)")
                                 .takes_value(true)
-                                .required(true)
+                                .required(false)
                         )
                         .arg(
                             Arg::with_name("mode")
@@ -259,7 +261,7 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                                 .short("m")
                                 .help("Operating mode")
                                 .takes_value(true)
-                                .required(true)
+                                .required(false)
                         )
                         .arg(
                             Arg::with_name("time")
