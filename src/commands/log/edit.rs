@@ -8,6 +8,8 @@ pub fn exec_edit_log(
     callsign: Option<&str>,
     frequency: Option<f32>,
     mode: Option<&str>,
+    rst_sent: Option<&str>,
+    rst_recv: Option<&str>,
     date: Option<&str>,
     time: Option<&str>,
     grid: Option<&str>,
@@ -57,6 +59,12 @@ pub fn exec_edit_log(
     }
     if let Some(mode) = mode {
         entry.mode = mode.to_string();
+    }
+    if let Some(rst_sent) = rst_sent {
+        entry.sent_rst = Some(rst_sent.to_string());
+    }
+    if let Some(rst_recv) = rst_recv {
+        entry.recv_rst = Some(rst_recv.to_string());
     }
     if let Some(grid) = grid {
         entry.grid = Some(grid.to_string());

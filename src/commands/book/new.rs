@@ -68,6 +68,22 @@ pub fn exec_new_book(
                     match record.get("MODE").expect("Missing ADIF field \"MODE\"") {
                         adif::AdifType::Str(val) => val.to_string(),
                         _ => panic!("Found a mode that is not a string!"),
+                    }, 
+                    // Parse the sent RST
+                    match record.get("RST_SENT") {
+                        Some(s) => Some(match s {
+                            adif::AdifType::Str(val) => val.to_string(),
+                            _ => panic!("Found an RST that is not a string!"),
+                        }),
+                        None => None,
+                    }, 
+                    // Parse received RST
+                    match record.get("RST_RCVD") {
+                        Some(s) => Some(match s {
+                            adif::AdifType::Str(val) => val.to_string(),
+                            _ => panic!("Found a RST that is not a string!"),
+                        }),
+                        None => None,
                     },
                     // Parse the date
                     Some(

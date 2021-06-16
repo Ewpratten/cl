@@ -1,12 +1,20 @@
 use colored::Colorize;
 
-use crate::lib::{data::{logbook::{Logbook, book_name_or_default}, logentry::LogEntry}, ensure_storage_location_exists, get_data_books_path, get_data_default_book_path};
+use crate::lib::{
+    data::{
+        logbook::{book_name_or_default, Logbook},
+        logentry::LogEntry,
+    },
+    ensure_storage_location_exists, get_data_books_path, get_data_default_book_path,
+};
 
 pub fn exec_new_log(
     callsign: &str,
     frequency: f32,
     mode: &str,
     logbook: Option<&str>,
+    rst_sent: Option<&str>,
+    rst_recv: Option<&str>,
     date: Option<&str>,
     time: Option<&str>,
     grid: Option<&str>,
@@ -31,8 +39,10 @@ pub fn exec_new_log(
     let mut book: Logbook = autojson::structify(&book_path).expect("Could not deserialize logbook");
 
     // Create a log entry
-    let entry = LogEntry::new(callsign, frequency, mode, date, time, grid, name, notes)
-        .expect("Invalid input data");
+    let entry = LogEntry::new(
+        callsign, frequency, mode, rst_sent, rst_recv, date, time, grid, name, notes,
+    )
+    .expect("Invalid input data");
 
     // Add the entry to the book
     book.entries.push(entry);
