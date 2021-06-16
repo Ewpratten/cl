@@ -40,7 +40,7 @@ pub fn exec_new_log(
 
     // Create a log entry
     let entry = LogEntry::new(
-        callsign, frequency, mode, rst_sent, rst_recv, date, time, grid, name, notes,
+        callsign, frequency, mode, rst_sent, rst_recv, date, time, false, grid, name, notes,
     )
     .expect("Invalid input data");
 

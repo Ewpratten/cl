@@ -45,6 +45,7 @@ impl LogEntry {
         rst_recv: Option<&str>,
         date: Option<&str>,
         time: Option<&str>,
+        time_is_utc: bool,
         grid: Option<&str>,
         name: Option<&str>,
         notes: Option<&str>,
@@ -58,7 +59,7 @@ impl LogEntry {
             mode: mode.to_string(),
             sent_rst: rst_sent.map(Into::into),
             recv_rst: rst_recv.map(Into::into),
-            time: encode_date_time(date.map(Into::into), time.map(Into::into)),
+            time: encode_date_time(date.map(Into::into), time.map(Into::into), time_is_utc),
             grid: grid.map(Into::into),
             name: name.map(Into::into),
             notes: notes.map(Into::into),
@@ -73,6 +74,7 @@ impl LogEntry {
         rst_recv: Option<String>,
         date: Option<String>,
         time: Option<String>,
+        time_is_utc: bool,
         grid: Option<String>,
         name: Option<String>,
         notes: Option<String>,
@@ -86,7 +88,7 @@ impl LogEntry {
             mode,
             sent_rst: rst_sent,
             recv_rst: rst_recv,
-            time: encode_date_time(date, time),
+            time: encode_date_time(date, time, time_is_utc),
             grid,
             name,
             notes,
@@ -94,22 +96,28 @@ impl LogEntry {
     }
 }
 
-pub fn encode_date_time(date: Option<String>, time: Option<String>) -> DateTime<Utc> {
+pub fn encode_date_time(
+    date: Option<String>,
+    time: Option<String>,
+    already_utc: bool,
+) -> DateTime<Utc> {
     let date = match date {
         Some(date) => {
             NaiveDate::parse_from_str(date.replace("UTC", "").as_str(), "%Y-%m-%d").unwrap()
         }
         None => Utc::today().naive_local(),
     };
-    DateTime::from(
-        Local
-            .from_local_datetime(&match time {
-                Some(time) => {
-                    let time = NaiveTime::parse_from_str(time.as_str(), "%H:%M").unwrap();
-                    date.and_time(time)
-                }
-                None => date.and_time(Local::now().time()),
-            })
+    DateTime::from(match time {
+        Some(time) => {
+            let time = NaiveTime::parse_from_str(time.as_str(), "%H:%M").unwrap();
+
+            match already_utc {
+                true => Local.from_utc_datetime(&date.and_time(time)),
+                false => Local.from_local_datetime(&date.and_time(time)).unwrap(),
+            }
+        }
+        None => Local
+            .from_local_datetime(&date.and_time(Local::now().time()))
             .unwrap(),
-    )
+    })
 }

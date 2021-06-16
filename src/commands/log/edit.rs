@@ -92,7 +92,7 @@ pub fn exec_edit_log(
     };
     
     // Set the time
-    entry.time = encode_date_time(Some(new_date), Some(new_time));
+    entry.time = encode_date_time(Some(new_date), Some(new_time), false);
 
     // Write the book
     autojson::jsonify(&book, &book_path).expect("Failed to serialize logbook");

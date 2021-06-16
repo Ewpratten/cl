@@ -57,36 +57,50 @@ pub fn exec_query(callsign: &str, logbook: Option<&str>, search_all: bool) {
             if callsign_re.is_match(entry.callsign.to_uppercase().as_str()) {
                 // Build the table
                 let table = vec![
-                    vec![
-                        "Callsign",
-                        &entry.callsign.bright_blue().to_string()
-                    ],
+                    vec!["Callsign", &entry.callsign.bright_blue().to_string()],
                     vec![
                         "Name",
-                        &entry.name.as_ref().unwrap_or(&String::new()).bright_blue().to_string()
+                        &entry
+                            .name
+                            .as_ref()
+                            .unwrap_or(&String::new())
+                            .bright_blue()
+                            .to_string(),
                     ],
-                    vec![
-                        "Date",
-                        &entry.time.to_string().bright_blue().to_string()
-                    ],
+                    vec!["Date", &entry.time.to_string().bright_blue().to_string()],
                     vec![
                         "Frequency",
-                        &entry.frequency_khz.to_string().bright_blue().to_string()
+                        &entry.frequency_khz.to_string().bright_blue().to_string(),
                     ],
+                    vec!["Mode", &entry.mode.bright_blue().to_string()],
                     vec![
-                        "Mode",
-                        &entry.mode.bright_blue().to_string()
+                        "RST",
+                        &format!(
+                            "IN: {} OUT: {}",
+                            entry.recv_rst.as_ref().unwrap_or(&"???".to_string()).bright_blue(),
+                            entry.sent_rst.as_ref().unwrap_or(&"???".to_string()).bright_blue()
+                        ),
                     ],
                     vec![
                         "Grid",
-                        &entry.grid.as_ref().unwrap_or(&String::new()).bright_blue().to_string()
+                        &entry
+                            .grid
+                            .as_ref()
+                            .unwrap_or(&String::new())
+                            .bright_blue()
+                            .to_string(),
                     ],
                     vec![
                         "Notes",
-                        &entry.notes.as_ref().unwrap_or(&String::new()).bright_blue().to_string()
+                        &entry
+                            .notes
+                            .as_ref()
+                            .unwrap_or(&String::new())
+                            .bright_blue()
+                            .to_string(),
                     ],
                 ]
-                    .table();
+                .table();
 
                 // Print the table
                 cli_table::print_stdout(table).unwrap();

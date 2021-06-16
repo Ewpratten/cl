@@ -116,6 +116,7 @@ pub fn exec_new_book(
                             _ => panic!("Found a time that is not a string or time type!"),
                         },
                     ),
+                    true,
                     // Parse the gridsquare
                     match record.get("GRIDSQUARE") {
                         Some(s) => Some(match s {

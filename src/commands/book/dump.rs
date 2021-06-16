@@ -29,6 +29,8 @@ pub fn exec_dump_book(name: &str) {
                 entry.callsign.clone().bright_blue().to_string(),
                 entry.band.clone(),
                 entry.mode.clone(),
+                entry.sent_rst.clone().unwrap_or("???".to_string()),
+                entry.recv_rst.clone().unwrap_or("???".to_string()),
                 entry.time.date().to_string(),
             ]
         })
@@ -39,6 +41,8 @@ pub fn exec_dump_book(name: &str) {
             "Callsign".green().bold(),
             "Band".green().bold(),
             "Mode".green().bold(),
+            "RST>".green().bold(),
+            ">RST".green().bold(),
             "Date".green().bold(),
         ]);
 
