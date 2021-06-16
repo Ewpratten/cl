@@ -40,7 +40,7 @@ pub fn exec_export_book(name: &str, outfile: &str) {
                     "CALL" => AdifType::Str(entry.callsign.clone()),
                     "BAND" => AdifType::Str(entry.band.clone()),
                     "MODE" => AdifType::Str(entry.mode.clone()),
-                    "FREQ" => AdifType::Number((entry.frequency_khz / 1000.0) as f64),
+                    "FREQ" => AdifType::Number(((entry.frequency_khz as f64 * 1000.0).round() / 1000.0) / 1000.0 ),
                     "QSO_DATE" => AdifType::Date(entry.time.date()),
                     "TIME_ON" => AdifType::Time(entry.time.time()),
                     "TIME_OFF" => AdifType::Time(entry.time.time() + Duration::minutes(5)),
