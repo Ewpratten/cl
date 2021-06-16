@@ -35,6 +35,8 @@ SUBCOMMANDS:
 
 ### Common commands
 
+All commands will print their help message if run without arguments.
+
 #### `cl log new`
 
 Used to add a new entry to the logbook. Help info:
@@ -64,4 +66,26 @@ OPTIONS:
 
 ARGS:
     <callsign>    Callsign of the station you contacted
+```
+
+#### `cl query`
+
+Used for looking up existing entries in a logbook. The callsign field excepts REGEX strings for easy searching. Help info:
+
+```
+Look up existing logbook entries
+
+USAGE:
+    cl query [FLAGS] --callsign <callsign> [logbook]
+
+FLAGS:
+    -h, --help          Prints help information
+    -a, --search-all    Search all logbooks
+    -V, --version       Prints version information
+
+OPTIONS:
+    -c, --callsign <callsign>    Search by callsign
+
+ARGS:
+    <logbook>    Logbook to search (otherwise default or all)
 ```
