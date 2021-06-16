@@ -1,4 +1,6 @@
 # CL
+[![Crates.io](https://img.shields.io/crates/v/cllog)](https://crates.io/crates/cllog) 
+[![Build](https://github.com/Ewpratten/cl/actions/workflows/build.yml/badge.svg)](https://github.com/Ewpratten/cl/actions/workflows/build.yml)
 
 `cl` is my command-line amateur radio logging tool.
 
@@ -32,6 +34,10 @@ SUBCOMMANDS:
     log      Manage log entries
     query    Look up existing logbook entries
 ```
+
+### Import and export
+
+`cl` can both import and export ADIF files. This is useful for data migration, and exporting to LOTW.
 
 ### Common commands
 
