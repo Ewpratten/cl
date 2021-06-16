@@ -20,6 +20,7 @@ pub fn exec_new_log(
     grid: Option<&str>,
     name: Option<&str>,
     notes: Option<&str>,
+    tx_pwr: Option<f32>,
 ) {
     // Ensure we have our directories
     ensure_storage_location_exists();
@@ -40,7 +41,7 @@ pub fn exec_new_log(
 
     // Create a log entry
     let entry = LogEntry::new(
-        callsign, frequency, mode, rst_sent, rst_recv, date, time, false, grid, name, notes,
+        callsign, frequency, mode, rst_sent, rst_recv, date, time, false, grid, name, notes, tx_pwr,
     )
     .expect("Invalid input data");
 

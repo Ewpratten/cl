@@ -34,6 +34,9 @@ pub struct LogEntry {
 
     /// Notes
     pub notes: Option<String>,
+
+    /// Transmission power used
+    pub tx_pwr: Option<f32>
 }
 
 impl LogEntry {
@@ -49,6 +52,7 @@ impl LogEntry {
         grid: Option<&str>,
         name: Option<&str>,
         notes: Option<&str>,
+        tx_pwr: Option<f32>
     ) -> Result<Self, Error> {
         Ok(Self {
             callsign: callsign.to_string(),
@@ -63,6 +67,7 @@ impl LogEntry {
             grid: grid.map(Into::into),
             name: name.map(Into::into),
             notes: notes.map(Into::into),
+            tx_pwr
         })
     }
 
@@ -78,6 +83,7 @@ impl LogEntry {
         grid: Option<String>,
         name: Option<String>,
         notes: Option<String>,
+        tx_pwr: Option<f32>
     ) -> Result<Self, Error> {
         Ok(Self {
             callsign,
@@ -92,6 +98,7 @@ impl LogEntry {
             grid,
             name,
             notes,
+            tx_pwr
         })
     }
 }

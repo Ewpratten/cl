@@ -244,6 +244,13 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                                 .takes_value(true)
                                 .required(false)
                         )
+                        .arg(
+                            Arg::with_name("tx_pwr")
+                                .long("tx-pwr")
+                                .help("Number of watts used for this QSO")
+                                .takes_value(true)
+                                .required(false)
+                        )
                 )
                 .subcommand(
                     SubCommand::with_name("edit")
@@ -331,6 +338,13 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                             Arg::with_name("notes")
                                 .long("notes")
                                 .help("Any QSO notes")
+                                .takes_value(true)
+                                .required(false)
+                        )
+                        .arg(
+                            Arg::with_name("tx_pwr")
+                                .long("tx-pwr")
+                                .help("Number of watts used for this QSO")
                                 .takes_value(true)
                                 .required(false)
                         )

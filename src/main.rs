@@ -72,6 +72,13 @@ fn main() {
                 sub_matches.value_of("grid"),
                 sub_matches.value_of("name"),
                 sub_matches.value_of("notes"),
+                match sub_matches.value_of("tx_pwr") {
+                    Some(val) => Some(val.parse().expect(&format!(
+                        "{} is not a valid number!",
+                        "Frequency".bright_blue()
+                    ))),
+                    None => None,
+                },
             )
         } else if let Some(sub_matches) = matches.subcommand_matches("edit") {
             exec_edit_log(
@@ -92,6 +99,13 @@ fn main() {
                 sub_matches.value_of("grid"),
                 sub_matches.value_of("name"),
                 sub_matches.value_of("notes"),
+                match sub_matches.value_of("tx_pwr") {
+                    Some(val) => Some(val.parse().expect(&format!(
+                        "{} is not a valid number!",
+                        "Frequency".bright_blue()
+                    ))),
+                    None => None,
+                },
             )
         }
     }

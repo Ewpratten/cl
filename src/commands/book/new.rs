@@ -68,7 +68,7 @@ pub fn exec_new_book(
                     match record.get("MODE").expect("Missing ADIF field \"MODE\"") {
                         adif::AdifType::Str(val) => val.to_string(),
                         _ => panic!("Found a mode that is not a string!"),
-                    }, 
+                    },
                     // Parse the sent RST
                     match record.get("RST_SENT") {
                         Some(s) => Some(match s {
@@ -76,7 +76,7 @@ pub fn exec_new_book(
                             _ => panic!("Found an RST that is not a string!"),
                         }),
                         None => None,
-                    }, 
+                    },
                     // Parse received RST
                     match record.get("RST_RCVD") {
                         Some(s) => Some(match s {
@@ -135,6 +135,17 @@ pub fn exec_new_book(
                     },
                     // Dont import notes
                     None,
+                    // Parse TX power
+                    match record.get("TX_PWR") {
+                        Some(s) => Some(match s {
+                            adif::AdifType::Str(val) => {
+                                lexical::parse::<f32, _>(val).expect("TX power is not a number!")
+                            }
+                            adif::AdifType::Number(val) => *val as f32,
+                            _ => panic!("Found a TX power that is not a string or number!"),
+                        }),
+                        None => None,
+                    },
                 )
                 .expect("Failed to parse imported entry");
 

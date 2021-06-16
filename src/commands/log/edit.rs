@@ -15,6 +15,7 @@ pub fn exec_edit_log(
     grid: Option<&str>,
     name: Option<&str>,
     notes: Option<&str>,
+    tx_pwr: Option<f32>,
 ) {
     // Ensure we have our directories
     ensure_storage_location_exists();
@@ -74,6 +75,9 @@ pub fn exec_edit_log(
     }
     if let Some(notes) = notes {
         entry.notes = Some(notes.to_string());
+    }
+    if let Some(tx_pwr) = tx_pwr {
+        entry.tx_pwr = Some(tx_pwr);
     }
 
     // Handle date and time
