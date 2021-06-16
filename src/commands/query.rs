@@ -1,5 +1,6 @@
 use cli_table::Table;
 use colored::Colorize;
+use regex::Regex;
 
 use crate::lib::{
     data::logbook::{book_name_or_default, Logbook},
@@ -31,6 +32,9 @@ pub fn exec_query(callsign: &str, logbook: Option<&str>, search_all: bool) {
         }
     }
 
+    // Build a regex searcher for the callsign
+    let callsign_re = Regex::new(callsign.to_uppercase().as_str()).unwrap();
+
     // Load every book to search their entries
     for book_name in book_list {
         // Check if the book exists
@@ -50,7 +54,7 @@ pub fn exec_query(callsign: &str, logbook: Option<&str>, search_all: bool) {
 
         // Search the contents
         for entry in book.entries.iter() {
-            if entry.callsign.to_uppercase() == callsign.to_uppercase() {
+            if callsign_re.is_match(entry.callsign.to_uppercase().as_str()) {
                 // Build the table
                 let table = vec![
                     vec![
