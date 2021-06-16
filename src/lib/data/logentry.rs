@@ -48,22 +48,46 @@ impl LogEntry {
                 .name
                 .to_string(),
             mode: mode.to_string(),
-            time: encode_date_time(date, time),
+            time: encode_date_time(date.map(Into::into), time.map(Into::into)),
             grid: grid.map(Into::into),
             name: name.map(Into::into),
             notes: notes.map(Into::into),
         })
     }
+
+    pub fn new_strings(
+        callsign: String,
+        frequency: f32,
+        mode: String,
+        date: Option<String>,
+        time:  Option<String>,
+        grid:  Option<String>,
+        name:  Option<String>,
+        notes:  Option<String>,
+    ) -> Result<Self, Error> {
+        Ok(Self {
+            callsign,
+            frequency_khz: frequency,
+            band: hambands::search::get_band_for_frequency((frequency * 1000.0) as u64)?
+                .name
+                .to_string(),
+            mode,
+            time: encode_date_time(date, time),
+            grid,
+            name,
+            notes,
+        })
+    }
 }
 
-pub fn encode_date_time(date: Option<&str>, time: Option<&str>) -> DateTime<Utc> {
+pub fn encode_date_time(date: Option<String>, time: Option<String>) -> DateTime<Utc> {
     let date = match date {
-        Some(date) => NaiveDate::parse_from_str(date, "%Y-%m-%d").unwrap(),
+        Some(date) => NaiveDate::parse_from_str(date.replace("UTC", "").as_str(), "%Y-%m-%d").unwrap(),
         None => Utc::today().naive_local(),
     };
     DateTime::from(Local.from_local_datetime(&match time {
         Some(time) => {
-            let time = NaiveTime::parse_from_str(time, "%H:%M").unwrap();
+            let time = NaiveTime::parse_from_str(time.as_str(), "%H:%M").unwrap();
             date.and_time(time)
         },
         None => date.and_time(Local::now().time())
