@@ -123,6 +123,15 @@ pub fn get_cli_matches<'a>() -> ArgMatches<'a> {
                             .required(true)
                     )
                 )
+                .subcommand(SubCommand::with_name("publish")
+                    .about("Publish the contents of a logbook to LOTW")
+                    .arg(
+                        Arg::with_name("name")
+                            .help("Logbook name")
+                            .takes_value(true)
+                            .required(true),
+                    )
+                )
         )
         .subcommand(
             SubCommand::with_name("query")

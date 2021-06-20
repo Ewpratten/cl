@@ -3,6 +3,7 @@ use colored::Colorize;
 use commands::{
     book::{
         dump::exec_dump_book, edit::exec_edit_book, export::exec_export_book, new::exec_new_book,
+        publish::exec_publish_book,
     },
     log::new::exec_new_log,
     query::exec_query,
@@ -44,6 +45,22 @@ fn main() {
                 sub_matches.value_of("name").unwrap(),
                 sub_matches.value_of("outfile").unwrap(),
             )
+        } else if let Some(sub_matches) = matches.subcommand_matches("publish") {
+            // Create a temp file for adif data to be stored in
+            let temp_file = tempfile::tempdir().expect("Could not allocate temp file");
+            let temp_file = temp_file.path().join("export.adi");
+
+            // Export the book
+            exec_export_book(
+                sub_matches.value_of("name").unwrap(),
+                temp_file.to_str().unwrap(),
+            );
+
+            // Upload using tqsl
+            exec_publish_book(
+                sub_matches.value_of("name").unwrap(),
+                temp_file.to_str().unwrap(),
+            );
         }
     } else if let Some(matches) = global_matches.subcommand_matches("query") {
         exec_query(
